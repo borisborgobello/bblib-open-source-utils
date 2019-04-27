@@ -37,6 +37,5 @@ public class FXMLLogController extends BBSuperController {
         taErr.setText(BBLog.getLogErrAsStr());
         labelErrFile.setText(BBLog.LOG_ERR());
         labelOutFile.setText(BBLog.LOG_OUT());
-    }    
-    
+    }       
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.borisborgobello.img;
+package com.borisborgobello.jfx.img;
 
 import com.borisborgobello.jfx.img.processing.BBImageSplitter;
 import com.borisborgobello.jfx.utils.BBColor;

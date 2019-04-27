@@ -29,9 +29,9 @@ import javafx.stage.Stage;
  *
  * @author borisborgobello
  */
-public class RunApplication extends Application implements BBApplication.BBApplicationInterface {
+public class BBLibSampleApplication extends Application implements BBApplication.BBApplicationInterface {
     
-    public static RunApplication getApp() { return (RunApplication) BBApplication.MAIN_APPLICATION; }
+    public static BBLibSampleApplication getApp() { return (BBLibSampleApplication) BBApplication.MAIN_APPLICATION; }
     
     @Override
     public BBBuildSettings getBuildSettings() { 
@@ -50,7 +50,7 @@ public class RunApplication extends Application implements BBApplication.BBAppli
     public Image getAppIcon() { return new Image(BBRes.getRes(BBRes.DefaultAssets.S_ICON_BALL_PACMAN)); }
     
     
-    public static BBFXMLMainController MAIN_CONTROLLER;
+    public static BBLibFXMLSampleMainController MAIN_CONTROLLER;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -62,7 +62,7 @@ public class RunApplication extends Application implements BBApplication.BBAppli
         
         BBLog.s("Welcome to BBLib !!!");
         
-        load(BBFXMLMainController.class, "Welcome to BBLIB");
+        load(BBLibFXMLSampleMainController.class, "Welcome to BBLIB");
     }
     
     private void load(Class<? extends BBSuperController> clazz, String title) {
@@ -82,7 +82,7 @@ public class RunApplication extends Application implements BBApplication.BBAppli
             
             BBApplication.MAIN_STAGE.setOnCloseRequest((_n) -> {BBUIHelper.quitApplication(); });
         } catch (IOException ex) {
-            Logger.getLogger(RunApplication.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BBLibSampleApplication.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

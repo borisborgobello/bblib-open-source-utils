@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.borisborgobello.jfx.handler;
+package com.borisborgobello.jfx.threading;
 
 import com.borisborgobello.jfx.utils.BBLog;
 import java.util.ArrayList;
@@ -15,30 +15,9 @@ import javafx.application.Platform;
  * 
  * @author borisborgobello
  * 
- * AtomicInteger i2 = new AtomicInteger(0);
-        
-    ISHandler.TaskStackHandler tsh = new ISHandler.TaskStackHandler("Test") {
-        @Override
-        public void onTaskStackFinished() {
-            ISLog.s("Done with result " + i2.get());
-        }
-    };
-
-    for (int i = 0; i < 1000; i++) {
-        final int tmp = i;
-        tsh.addTask(new ISHandler.Task("Task " + tmp) {
-            @Override
-            public void runNoEx() throws Exception {
-                i2.addAndGet(tmp);
-                //log(""+tmp*tmp);
-                boolean success = Math.random() > 0.6;
-                if (success) doneSuccess();
-                else doneFailed(null);
-            }
-        });
-    }
-
-    tsh.execute(1);
+ * A class responsible for creating and feeding threads for a stack of tasks
+ * to do. Cannot be stopped once started. If executed over one thread, execution
+ * is synchronous (careful with main thread).
  */
 public abstract class BBTaskStackHandler {
     public boolean S_TSH_VERBOSE = true;
@@ -58,6 +37,9 @@ public abstract class BBTaskStackHandler {
 
     public final ConcurrentLinkedDeque<BBTask> successTasks = new ConcurrentLinkedDeque<>();
     public final ConcurrentLinkedDeque<BBTask> failedTasks = new ConcurrentLinkedDeque<>();
+    
+    public long startns;
+    public long stopns;
 
     public void execute(int nbThreads) {
         if (started) return;
@@ -71,6 +53,7 @@ public abstract class BBTaskStackHandler {
 
         if (S_TSH_VERBOSE) { BBLog.s(String.format("[%s] TaskStack exec %d tasks", title, NB_TASKS)); }
 
+        startns = System.nanoTime();
         if (NB_THREADS <= 1) execNext();
         else {
             for (int i = 0; i < nbThreads; i++) {
@@ -118,8 +101,12 @@ public abstract class BBTaskStackHandler {
     public void onTaskFinished(BBTask t) {}
 
     protected final void onTaskStackFinishedPriv() {
+        stopns = System.nanoTime();
         Platform.runLater(() -> {
-            if (S_TSH_VERBOSE) { BBLog.s(String.format("[%s] TaskStack finished %d tasks, %d success, %d failed", title, NB_TASKS, successTasks.size(), failedTasks.size())); }
+            if (S_TSH_VERBOSE) { 
+                BBLog.s(String.format("[%s] TaskStack finished %d tasks, %d success, %d failed", title, NB_TASKS, successTasks.size(), failedTasks.size())); 
+                BBLog.s(String.format("[%s] TaskStack finished in %d ms", title, (stopns-startns)/1000000)); 
+            }
             onTaskStackFinished();
         });
     }

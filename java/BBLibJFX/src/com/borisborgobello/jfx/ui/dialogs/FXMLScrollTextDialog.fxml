@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.borisborgobello.dialogs.FXMLScrollTextDialogController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.borisborgobello.jfx.ui.dialogs.FXMLScrollTextDialogController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -24,7 +24,7 @@
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../resources/borisborgobello/ic_ball_ko.png" />
+                              <Image url="@../../../../../resources/borisborgobello/ic_ball_ko.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -33,7 +33,7 @@
                      <graphic>
                         <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../resources/borisborgobello/ic_ball_pacman.png" />
+                              <Image url="@../../../../../resources/borisborgobello/ic_ball_pacman.png" />
                            </image>
                         </ImageView>
                      </graphic>

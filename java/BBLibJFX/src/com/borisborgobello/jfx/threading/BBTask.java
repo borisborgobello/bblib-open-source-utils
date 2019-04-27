@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.borisborgobello.jfx.handler;
+package com.borisborgobello.jfx.threading;
 
 import com.borisborgobello.jfx.utils.BBLog;
 import com.borisborgobello.jfx.utils.Callb;

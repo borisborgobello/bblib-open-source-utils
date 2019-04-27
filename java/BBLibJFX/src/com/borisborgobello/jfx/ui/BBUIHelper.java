@@ -5,6 +5,7 @@
  */
 package com.borisborgobello.jfx.ui;
 
+import com.borisborgobello.jfx.ui.dialogs.BBDialogs;
 import com.borisborgobello.jfx.img.BBImgUtils;
 import com.borisborgobello.jfx.utils.BBDateUtils;
 import com.borisborgobello.jfx.utils.BBColor;
@@ -12,9 +13,9 @@ import com.borisborgobello.jfx.utils.BBZipper;
 import com.borisborgobello.jfx.utils.BBLog;
 import com.borisborgobello.jfx.utils.BBTools;
 import com.borisborgobello.jfx.utils.Callb;
-import com.borisborgobello.jfx.dialogs.FXMLInputDialogController;
+import com.borisborgobello.jfx.ui.dialogs.FXMLInputDialogController;
 import com.borisborgobello.jfx.ui.controllers.BBSuperController;
-import com.borisborgobello.jfx.dialogs.FXMLProgressDialogController;
+import com.borisborgobello.jfx.ui.dialogs.FXMLProgressDialogController;
 import com.borisborgobello.jfx.utils.BBColorUtils;
 import com.borisborgobello.jfx.utils.BBRes;
 import java.awt.image.BufferedImage;
@@ -229,49 +230,10 @@ public class BBUIHelper {
         timeline.play();
     }
 
-    public static final File promptForFile(BBSuperController c, String title, String extTitle, String... exts) {
-        for (int i = 0; i < exts.length; i++) {
-            exts[i] = "*." + exts[i];
-        }
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter(extTitle, exts));
-        File selectedFile = fileChooser.showOpenDialog(c.stage.get());
-        return selectedFile;
-    }
-
-    public static final List<File> promptForFiles(BBSuperController c, String title, String extTitle, String... exts) {
-        for (int i = 0; i < exts.length; i++) {
-            exts[i] = "*." + exts[i];
-        }
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter(extTitle, exts));
-        List<File> selectedFile = fileChooser.showOpenMultipleDialog(c.stage.get());
-        return selectedFile;
-    }
-
-    public static final File promptForDirectory(BBSuperController c, String title) {
-        DirectoryChooser fileChooser = new DirectoryChooser();
-        fileChooser.setTitle(title);
-        File selectedFile = fileChooser.showDialog(c.stage.get());
-        return selectedFile;
-    }
-
-    public static File promptChooserToSaveFile(BBSuperController c, String title, String extTitle, String ext) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter(extTitle, "*." + ext));
-        return fileChooser.showSaveDialog(c.stage.get());
-    }
-
     public static final void saveNodeAsPng(BBSuperController c, Node n) {
         WritableImage image = n.snapshot(new SnapshotParameters(), null);
 
-        File file = promptChooserToSaveFile(c, "Saving full cover photo PNG file...", "PNG File", "png");
+        File file = BBDialogs.promptChooserToSaveFile(c, "Saving full cover photo PNG file...", "PNG File", "png");
         try {
             ImageIO.write(BBImgUtils.fromFXImageSafe(image), "png", file);
         } catch (IOException e) {
@@ -433,7 +395,6 @@ public class BBUIHelper {
                 try {
                     mProgress = (FXMLProgressDialogController) FXMLProgressDialogController.showProgressDTSafeAsync(c, title);
                     progresses.put(c, mProgress);
-                    lambda.run(mProgress);
                 } catch (Exception ex) {
                     c.criticalError(ex);
                     return;

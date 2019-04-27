@@ -6,9 +6,9 @@
 package com.borisborgobello.jfx.utils;
 
 import com.borisborgobello.jfx.BBLibInit;
-import com.borisborgobello.jfx.handler.Handler;
+import com.borisborgobello.jfx.threading.Handler;
 import com.borisborgobello.jfx.ui.controllers.BBSuperController;
-import com.borisborgobello.jfx.dialogs.BBDialogs;
+import com.borisborgobello.jfx.ui.dialogs.BBDialogs;
 import com.borisborgobello.jfx.ui.BBUIHelper;
 import javafx.application.Application;
 import javafx.scene.image.Image;

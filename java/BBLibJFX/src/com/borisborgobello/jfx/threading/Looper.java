@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.borisborgobello.jfx.handler;
+package com.borisborgobello.jfx.threading;
 
 
 /**

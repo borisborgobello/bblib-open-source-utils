@@ -6,7 +6,7 @@
 package com.borisborgobello.jfx.utils;
 
 import com.borisborgobello.jfx.ui.controllers.BBSuperController;
-import com.borisborgobello.jfx.dialogs.BBDialogs;
+import com.borisborgobello.jfx.ui.dialogs.BBDialogs;
 import com.borisborgobello.jfx.ui.BBUIHelper;
 import java.io.File;
 import java.io.IOException;
@@ -168,10 +168,10 @@ public class BBCSV {
     }
 
     public static File promptForCSV(BBSuperController c) {
-        return BBUIHelper.promptForFile(c, "Choose CSV file", "CSV files", "csv");
+        return BBDialogs.promptForFile(c, "Choose CSV file", "CSV files", "csv");
     }
 
     public static File promptForSaveCSV(BBSuperController c) {
-        return BBUIHelper.promptChooserToSaveFile(c, "Saving to CSV...", "CSV files", "csv");
+        return BBDialogs.promptChooserToSaveFile(c, "Saving to CSV...", "CSV files", "csv");
     }
 }

@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.borisborgobello.jfx.dialogs;
+package com.borisborgobello.jfx.ui.dialogs;
 
-import com.borisborgobello.jfx.dialogs.FXMLDynamicDialogController.FXMLDynamicDialogControllerBuilder;
+import com.borisborgobello.jfx.ui.dialogs.FXMLDynamicDialogController.FXMLDynamicDialogControllerBuilder;
 import com.borisborgobello.jfx.ui.controllers.BBSuperController;
 import com.borisborgobello.jfx.utils.BBRes;
+import java.io.File;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +18,8 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
 /**
  *
@@ -152,5 +156,44 @@ public class BBDialogs {
         }
         fixOwner(c, a);
         return a;
+    }
+    
+    public static final File promptForFile(BBSuperController c, String title, String extTitle, String... exts) {
+        for (int i = 0; i < exts.length; i++) {
+            exts[i] = "*." + exts[i];
+        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter(extTitle, exts));
+        File selectedFile = fileChooser.showOpenDialog(c.stage.get());
+        return selectedFile;
+    }
+
+    public static final List<File> promptForFiles(BBSuperController c, String title, String extTitle, String... exts) {
+        for (int i = 0; i < exts.length; i++) {
+            exts[i] = "*." + exts[i];
+        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter(extTitle, exts));
+        List<File> selectedFile = fileChooser.showOpenMultipleDialog(c.stage.get());
+        return selectedFile;
+    }
+
+    public static final File promptForDirectory(BBSuperController c, String title) {
+        DirectoryChooser fileChooser = new DirectoryChooser();
+        fileChooser.setTitle(title);
+        File selectedFile = fileChooser.showDialog(c.stage.get());
+        return selectedFile;
+    }
+
+    public static File promptChooserToSaveFile(BBSuperController c, String title, String extTitle, String ext) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter(extTitle, "*." + ext));
+        return fileChooser.showSaveDialog(c.stage.get());
     }
 }

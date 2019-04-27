@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="751.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.borisborgobello.jfx.asamples.BBLibFXMLSampleDialogsController">
+   <children>
+      <StackPane layoutX="27.0" layoutY="49.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox layoutX="27.0" layoutY="49.0" spacing="50.0" StackPane.alignment="CENTER">
+               <children>
+                  <VBox layoutX="27.0" layoutY="49.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label layoutX="27.0" layoutY="49.0" text="Alerts" />
+                        <Button layoutX="27.0" layoutY="74.0" mnemonicParsing="false" onAction="#clkAlertInfo" text="Info Dialog" />
+                        <Button layoutX="27.0" layoutY="112.0" mnemonicParsing="false" onAction="#clkAlertQuestions" text="Questions Dialog" />
+                        <Button layoutX="27.0" layoutY="152.0" mnemonicParsing="false" onAction="#clkAlertQuestionsMultiple" text="Questions D with multiple buttons" />
+                        <Button layoutX="27.0" layoutY="212.0" mnemonicParsing="false" onAction="#clkAlertFast2" text="Ultra fast 2 choices" />
+                        <Button layoutX="27.0" layoutY="252.0" mnemonicParsing="false" onAction="#clkAlertFast3" text="Ultra fast 3 choices" />
+                        <Button layoutX="27.0" layoutY="302.0" mnemonicParsing="false" onAction="#clkAlertCustom" text="Custom" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="266.0" layoutY="49.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label layoutX="266.0" layoutY="49.0" text="Choosers" />
+                        <Button mnemonicParsing="false" onAction="#clkChooserFile" text="Prompt for file" />
+                        <Button mnemonicParsing="false" onAction="#clkChooserFiles" text="Prompt for files" />
+                        <Button mnemonicParsing="false" onAction="#clkChooserDir" text="Prompt for directory" />
+                        <Button mnemonicParsing="false" onAction="#clkChooserSaveFile" text="Prompt for save file" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="556.0" layoutY="55.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label layoutX="579.0" layoutY="55.0" text="Controllers" />
+                        <Button layoutX="556.0" layoutY="94.0" mnemonicParsing="false" onAction="#clkControllerDynamicD" text="Dynamic Dialog" />
+                        <Button mnemonicParsing="false" onAction="#clkControllerInputD" text="Input Dialog" />
+                        <Button mnemonicParsing="false" onAction="#clkControllerProgressD" text="Progress Dialog" />
+                        <Button mnemonicParsing="false" onAction="#clkControllerProgressScrollingTextD" text="Scrolling Text Dialog" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </padding>
+      </StackPane>
+   </children>
+</AnchorPane>

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.borisborgobello.jfx.handler;
+package com.borisborgobello.jfx.threading;
 
 /**
  * Handy class for starting a new thread that has a looper. The looper can then be used to create

@@ -265,8 +265,8 @@ public class BBSuperContBuilder {
                 owner.criticalError(ex);
             }
             ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
-        return null;
     }
     
     // Call when controller TS is needed, controller is to be returned synchronously

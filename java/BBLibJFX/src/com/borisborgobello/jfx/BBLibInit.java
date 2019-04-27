@@ -5,7 +5,7 @@
  */
 package com.borisborgobello.jfx;
 
-import com.borisborgobello.jfx.handler.Handler;
+import com.borisborgobello.jfx.threading.Handler;
 import com.borisborgobello.jfx.utils.BBLog;
 import javafx.application.Platform;
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.borisborgobello.jfx.dialogs;
+package com.borisborgobello.jfx.ui.dialogs;
 
 import com.borisborgobello.jfx.ui.controllers.BBSuperContBuilder;
 import com.borisborgobello.jfx.ui.controllers.BBSuperController;

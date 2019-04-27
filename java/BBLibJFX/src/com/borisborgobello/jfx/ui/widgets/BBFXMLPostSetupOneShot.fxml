@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="245.0" prefWidth="466.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.borisborgobello.ui.widgets.BBFXMLPostSetupOneShotController">
+<AnchorPane id="AnchorPane" prefHeight="245.0" prefWidth="466.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.borisborgobello.jfx.ui.widgets.BBFXMLPostSetupOneShotController">
    <children>
       <VBox layoutX="21.0" layoutY="50.0" prefHeight="111.0" prefWidth="430.0" spacing="6.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="50.0">
          <children>
