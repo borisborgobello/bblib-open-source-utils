@@ -28,7 +28,7 @@
 
 package com.twelvemonkeys.image;
 
-import com.borisborgobello.img.BBImgUtils;
+import com.borisborgobello.jfx.img.BBImgUtils;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;

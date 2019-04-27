@@ -7,12 +7,12 @@ package com.borisborgobello.jfx.asamples;
  */
 
 
-import com.borisborgobello.utils.BBLog;
-import com.borisborgobello.ui.controllers.BBSuperController;
-import com.borisborgobello.utils.BBApplication;
-import com.borisborgobello.utils.BBBuildSettings;
-import com.borisborgobello.utils.BBRes;
-import com.borisborgobello.ui.BBUIHelper;
+import com.borisborgobello.jfx.utils.BBLog;
+import com.borisborgobello.jfx.ui.controllers.BBSuperController;
+import com.borisborgobello.jfx.utils.BBApplication;
+import com.borisborgobello.jfx.utils.BBBuildSettings;
+import com.borisborgobello.jfx.utils.BBRes;
+import com.borisborgobello.jfx.ui.BBUIHelper;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.logging.Level;

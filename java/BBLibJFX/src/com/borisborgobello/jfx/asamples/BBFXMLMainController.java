@@ -6,7 +6,7 @@ package com.borisborgobello.jfx.asamples;
  * and open the template in the editor.
  */
 
-import com.borisborgobello.ui.controllers.BBSuperController;
+import com.borisborgobello.jfx.ui.controllers.BBSuperController;
 import java.net.URL;
 import java.util.ResourceBundle;
 

@@ -5,8 +5,8 @@
  */
 package com.borisborgobello.img;
 
-import com.borisborgobello.img.processing.BBImageSplitter;
-import com.borisborgobello.utils.BBColor;
+import com.borisborgobello.jfx.img.processing.BBImageSplitter;
+import com.borisborgobello.jfx.utils.BBColor;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
