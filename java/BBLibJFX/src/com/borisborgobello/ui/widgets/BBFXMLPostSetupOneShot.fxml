@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="245.0" prefWidth="466.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.borisborgobello.ui.widgets.BBFXMLPostSetupOneShotController">
+   <children>
+      <VBox layoutX="21.0" layoutY="50.0" prefHeight="111.0" prefWidth="430.0" spacing="6.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="bloc1Label" text="Email" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Black" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="bloc1TF" prefHeight="27.0" prefWidth="234.0" promptText="Email" />
+                  <Button fx:id="bloc1Button" mnemonicParsing="false" onAction="#clkBlocButtonInternal" prefHeight="25.0" prefWidth="140.0" text="OK">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="bloc2Label" text="Email" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Black" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="bloc2TF" prefHeight="27.0" prefWidth="234.0" promptText="Email" />
+                  <Button fx:id="bloc2Button" mnemonicParsing="false" onAction="#clkBlocButtonInternal" prefHeight="25.0" prefWidth="140.0" text="OK">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label layoutX="91.0" layoutY="-8.0" text="POST SETUP WORK" textFill="WHITE">
+         <font>
+            <Font name="Trattatello" size="34.0" />
+         </font>
+      </Label>
+      <Button fx:id="generalButton2" layoutX="166.0" layoutY="198.0" mnemonicParsing="false" onAction="#clkGeneralButtonInternal" prefHeight="25.0" prefWidth="140.0" text="General2">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
+      <Button fx:id="generalButton1" layoutX="21.0" layoutY="198.0" mnemonicParsing="false" onAction="#clkGeneralButtonInternal" prefHeight="25.0" prefWidth="140.0" text="General1">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
+      <Button fx:id="generalButton3" layoutX="312.0" layoutY="198.0" mnemonicParsing="false" onAction="#clkGeneralButtonInternal" prefHeight="25.0" prefWidth="140.0" text="General3">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>

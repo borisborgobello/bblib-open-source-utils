@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.borisborgobello.dialogs.FXMLScrollTextDialogController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <TextArea fx:id="ta" editable="false" maxHeight="600.0" prefHeight="200.0" prefWidth="200.0" wrapText="true" VBox.vgrow="ALWAYS" />
+            <HBox alignment="CENTER" prefHeight="6.0" prefWidth="1150.0" spacing="40.0">
+               <children>
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#onKO" prefHeight="27.0" prefWidth="181.0" text="CANCEL">
+                     <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../resources/borisborgobello/ic_ball_ko.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#onOK" prefHeight="60.0" prefWidth="222.0" text="OK">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../resources/borisborgobello/ic_ball_pacman.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
