@@ -19,6 +19,7 @@ It is possible to generate Windows and MacOS X user friendly and obfuscated apps
 Obfuscation is done via proguard. The proguard config is found at the root of the project alongside a copy of proguard.jar binary.
 
 Creation shell scripts are inside ./exports/ folder. Output will be zipped and moved to ./exports/bin dir.
+
 - For Mac Application, you need jar2app https://github.com/Jorl17/jar2app : ./build_bblibapp_mac.sh
 
 
