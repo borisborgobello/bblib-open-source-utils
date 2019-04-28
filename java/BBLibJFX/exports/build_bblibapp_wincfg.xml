@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>../store/bblib_enc.jar</jar>
+  <outfile>../store/BBLibApp.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>true</restartOnCrash>
+  <manifest></manifest>
+  <icon>./bblibapp.ico</icon>
+  <singleInstance>
+    <mutexName>bblibapp</mutexName>
+    <windowTitle>BBLibApp already running</windowTitle>
+  </singleInstance>
+  <jre>
+    <path></path>
+    <bundledJre64Bit>false</bundledJre64Bit>
+    <bundledJreAsFallback>false</bundledJreAsFallback>
+    <minVersion>1.8.0_121</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJdk</jdkPreference>
+    <runtimeBits>64/32</runtimeBits>
+    <initialHeapSize>100</initialHeapSize>
+    <maxHeapSize>1000</maxHeapSize>
+    <opt>-Dprism.order=sw -Dprism.verbose=true</opt>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>CC</txtFileVersion>
+    <fileDescription>Boris Borgobello BBLib Application</fileDescription>
+    <copyright>Copyright BB MIT License</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>CC</txtProductVersion>
+    <productName>BBLib Application</productName>
+    <companyName>Boris Borgobello</companyName>
+    <internalName>BBLib JFX</internalName>
+    <originalFilename>BBLibApp.exe</originalFilename>
+    <trademarks>Boris Borgobello</trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
+</launch4jConfig>
