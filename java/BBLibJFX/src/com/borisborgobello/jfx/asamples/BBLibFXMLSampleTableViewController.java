@@ -7,7 +7,6 @@ package com.borisborgobello.jfx.asamples;
 
 import com.borisborgobello.jfx.ui.BBUITableViewUtils;
 import com.borisborgobello.jfx.ui.controllers.BBTabTableViewController;
-import com.borisborgobello.jfx.utils.BBTools;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
@@ -20,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class

@@ -57,7 +57,7 @@ public class BBImageApacheMLBridge {
         public boolean shouldCloneData();
     }
 
-    public static class ISFilterGroup<T> {
+    public static class BBFilterGroup<T> {
         public double[] center;
         public ArrayList<T> points = new ArrayList<>();
     }
@@ -74,7 +74,7 @@ public class BBImageApacheMLBridge {
         }
         public abstract String getName();
         public abstract String getParamName(int position);
-        public final <T> ArrayList<ISFilterGroup<T>> filter(ArrayList<T> p, BBDistances d, PixelConverter<T> c, Object... params) {
+        public final <T> ArrayList<BBFilterGroup<T>> filter(ArrayList<T> p, BBDistances d, PixelConverter<T> c, Object... params) {
             StringBuilder sb = new StringBuilder();
             if (params != null) {
                 for (int i = 0; i < params.length; i++) {
@@ -85,7 +85,7 @@ public class BBImageApacheMLBridge {
             BBLog.s(String.format("Starting filter %s using distance %s and with params %s", getName(), d.name, sb.toString()));
             return doFilter(p, d, c, params);
         }
-        public abstract <T> ArrayList<ISFilterGroup<T>> doFilter(ArrayList<T> p, BBDistances d, PixelConverter<T> c, Object... params);
+        public abstract <T> ArrayList<BBFilterGroup<T>> doFilter(ArrayList<T> p, BBDistances d, PixelConverter<T> c, Object... params);
     }
 
     public static class FKmeansAp extends ISFilterBase {
@@ -109,7 +109,7 @@ public class BBImageApacheMLBridge {
         }
 
         @Override
-        public <T> ArrayList<ISFilterGroup<T>> doFilter(ArrayList<T> p, BBDistances d, PixelConverter<T> conv, Object... params) {
+        public <T> ArrayList<BBFilterGroup<T>> doFilter(ArrayList<T> p, BBDistances d, PixelConverter<T> conv, Object... params) {
             if (params.length != getParamCount()) {
                 throw new RuntimeException("Wrongs args");
             }
@@ -152,9 +152,9 @@ public class BBImageApacheMLBridge {
             }
             BBLog.s("Clustering time (s) -> " + (System.currentTimeMillis() - start) / 1000);
 
-            ArrayList<ISFilterGroup<T>> result = new ArrayList<>(clusterResults.size());
+            ArrayList<BBFilterGroup<T>> result = new ArrayList<>(clusterResults.size());
             for (int i = 0; i < clusterResults.size(); i++) {
-                ISFilterGroup<T> fg = new ISFilterGroup();
+                BBFilterGroup<T> fg = new BBFilterGroup();
                 result.add(fg);
                 CentroidCluster<Clusterable> cc = clusterResults.get(i);
                 fg.center = cc.getCenter().getPoint();
