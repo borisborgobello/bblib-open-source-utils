@@ -5,7 +5,6 @@
  */
 package com.borisborgobello.jfx.io;
 
-import com.borisborgobello.jfx.io.BBProgressHttpEntityWrapper;
 import com.borisborgobello.jfx.utils.Callb2;
 import com.borisborgobello.jfx.utils.Callb3;
 import java.io.File;
@@ -143,12 +142,10 @@ public class BBRequestUtils {
                 if (post.getEntity() != null) {
                     notifUp = true;
                     Platform.runLater(() -> { progressUp.run(0.0, false); });
-                    post.setEntity(new BBProgressHttpEntityWrapper(post.getEntity(), new BBProgressHttpEntityWrapper.ProgressCallback() {
-                            @Override
-                            public void progress(float progress) { // already in %
-                                Platform.runLater(() -> { progressUp.run(progress/100.0, false); });
-                            }
-                        }));
+                    post.setEntity(new BBProgressHttpEntityWrapper(post.getEntity(), (float progress) -> {
+                        // already in %
+                        Platform.runLater(() -> { progressUp.run(progress/100.0, false); });
+                    }));
                 }
             }
 
@@ -167,11 +164,9 @@ public class BBRequestUtils {
             if (resEntity != null) {
                 if (progressDown != null) {
                     Platform.runLater(() -> { progressDown.run(0.0, false); });
-                    resEntity = new BBProgressHttpEntityWrapper(resEntity, new BBProgressHttpEntityWrapper.ProgressCallback() {
-                        @Override
-                        public void progress(float progress) { // already in %
-                            Platform.runLater(() -> { progressDown.run(progress/100.0, false); });
-                        }
+                    resEntity = new BBProgressHttpEntityWrapper(resEntity, (float progress) -> {
+                        // already in %
+                        Platform.runLater(() -> { progressDown.run(progress/100.0, false); });
                     });
                 }
                 data = EntityUtils.toByteArray(resEntity);

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.borisborgobello.jfx.asamples.BBLibFXMLSampleTableViewController">
+   <children>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+              <items>
+                  <TextField fx:id="tfSearch" promptText="Search..." />
+                  <CheckBox fx:id="cbSpecialSort" mnemonicParsing="false" onAction="#clkSpecialSort" text="Special sort" />
+              </items>
+            </ToolBar>
+            <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn prefWidth="500.0" text="Pure data">
+                     <columns>
+                        <TableColumn prefWidth="70.0" text="#" />
+                        <TableColumn prefWidth="200.0" text="Name" />
+                      <TableColumn prefWidth="75.0" text="Dialcode" />
+                        <TableColumn prefWidth="75.0" text="Code" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn prefWidth="100.0" text="Comparator" />
+                  <TableColumn prefWidth="100.0" text="Factories">
+                     <columns>
+                        <TableColumn prefWidth="100.0" text="Dyna Button" />
+                        <TableColumn prefWidth="100.0" text="Dyna SC" />
+                        <TableColumn prefWidth="100.0" text="Image Cell" />
+                        <TableColumn prefWidth="100.0" text="Button Cell" />
+                        <TableColumn prefWidth="100.0" text="Dual Background" />
+                        <TableColumn prefWidth="100.0" text="Dyna Image" />
+                     </columns>
+                  </TableColumn>
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

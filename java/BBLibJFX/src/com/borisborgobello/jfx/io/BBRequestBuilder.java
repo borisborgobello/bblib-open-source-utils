@@ -124,13 +124,10 @@ public class BBRequestBuilder {
             }
 
             HttpGet request = new HttpGet(b.build());
-            BBRequestUtils.executeRequest(async, request, progressUp, progressDown, new Callb3<Integer, byte[], Exception>() {
-                @Override
-                public void run(Integer t, byte[] u, Exception v) {
-                    if (cb1 != null) try { cb1.run(t, v); } catch (Exception e2) { e2.printStackTrace(); }
-                    else {
-                        try { cb2.run(t, u, v); } catch (Exception e2) { e2.printStackTrace(); }
-                    }
+            BBRequestUtils.executeRequest(async, request, progressUp, progressDown, (Integer t, byte[] u, Exception v) -> {
+                if (cb1 != null) try { cb1.run(t, v); } catch (Exception e2) { e2.printStackTrace(); }
+                else {
+                    try { cb2.run(t, u, v); } catch (Exception e2) { e2.printStackTrace(); }
                 }
             });
         } catch (Exception e) {

@@ -33,6 +33,11 @@ public class BBLibFXMLSampleMainController extends BBSuperController {
                 "Dialog samples", Modality.APPLICATION_MODAL, StageStyle.DECORATED);
     }
     
+    @FXML void onClickTVC() {
+        BBSuperContBuilder.show(this, BBLibFXMLSampleTableViewController.class, 
+                "TableView sample", Modality.APPLICATION_MODAL, StageStyle.DECORATED);
+    }
+    
     @FXML void onClickLogs() {
         BBSuperContBuilder.show(this, FXMLLogController.class, 
                 "Logs", Modality.APPLICATION_MODAL, StageStyle.DECORATED);

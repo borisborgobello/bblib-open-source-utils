@@ -13,6 +13,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#onClickThreadingSamples" text="Threading Samples" />
             <Button mnemonicParsing="false" onAction="#onClickDialogSamples" text="Dialog Samples" />
+            <Button mnemonicParsing="false" onAction="#onClickTVC" text="BBTableViewController" />
             <Button mnemonicParsing="false" onAction="#onClickLogs" text="LOGS" />
          </children>
          <padding>
