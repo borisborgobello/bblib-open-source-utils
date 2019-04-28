@@ -84,7 +84,7 @@ Zipping JAR
 DONE
 ```
 
-### Libray
+### Library
 
 Samples and use cases are found into asamples package.
 
