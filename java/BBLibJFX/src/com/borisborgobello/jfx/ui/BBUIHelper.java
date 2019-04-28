@@ -393,7 +393,7 @@ public class BBUIHelper {
             FXMLProgressDialogController mProgress = progresses.get(c);
             if (mProgress == null) {
                 try {
-                    mProgress = (FXMLProgressDialogController) FXMLProgressDialogController.showProgressDTSafeAsync(c, title);
+                    mProgress = FXMLProgressDialogController.showProgressDTSafeAsync(c, title);
                     progresses.put(c, mProgress);
                 } catch (Exception ex) {
                     c.criticalError(ex);

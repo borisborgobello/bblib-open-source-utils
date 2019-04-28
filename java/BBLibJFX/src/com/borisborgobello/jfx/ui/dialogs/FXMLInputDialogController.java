@@ -33,6 +33,7 @@ public class FXMLInputDialogController extends BBSuperController {
         FXMLInputDialogController cont = (FXMLInputDialogController) BBSuperContBuilder.inst(c, FXMLInputDialogController.class, title)
                 .setModality(Modality.APPLICATION_MODAL)
                 .setStageStyle(StageStyle.UTILITY)
+                .setData(title)
                 .setCallbackBidir((Object param) -> {
                     boolean blank = ((String)param).trim().length() == 0;
                     if (blank) {
@@ -49,6 +50,7 @@ public class FXMLInputDialogController extends BBSuperController {
                 .setModality(Modality.APPLICATION_MODAL)
                 .setStageStyle(StageStyle.UTILITY)
                 .setCallbackBidir(check == null ? null : (Object param) -> { return check.call((String) param); })
+                .setData(title)
                 .showAndWait();
         return cont.tf.getText();
     }

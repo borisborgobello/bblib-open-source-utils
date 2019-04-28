@@ -8,6 +8,7 @@ package com.borisborgobello.jfx.asamples;
 
 import com.borisborgobello.jfx.ui.controllers.BBSuperContBuilder;
 import com.borisborgobello.jfx.ui.controllers.BBSuperController;
+import com.borisborgobello.jfx.ui.widgets.FXMLLogController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -30,5 +31,10 @@ public class BBLibFXMLSampleMainController extends BBSuperController {
     @FXML void onClickDialogSamples() {
         BBSuperContBuilder.show(this, BBLibFXMLSampleDialogsController.class, 
                 "Dialog samples", Modality.APPLICATION_MODAL, StageStyle.DECORATED);
+    }
+    
+    @FXML void onClickLogs() {
+        BBSuperContBuilder.show(this, FXMLLogController.class, 
+                "Logs", Modality.APPLICATION_MODAL, StageStyle.DECORATED);
     }
 }

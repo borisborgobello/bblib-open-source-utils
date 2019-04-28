@@ -23,14 +23,14 @@ import javafx.stage.WindowEvent;
  */
 public class FXMLProgressDialogController extends BBSuperController {
     
-    public static BBSuperController showProgressD(BBSuperController c, String title) throws Exception {
-        return BBSuperContBuilder.inst(c, FXMLProgressDialogController.class, title)
+    public static FXMLProgressDialogController showProgressD(BBSuperController c, String title) {
+        return (FXMLProgressDialogController) BBSuperContBuilder.inst(c, FXMLProgressDialogController.class, title)
                 .setModality(Modality.APPLICATION_MODAL).setStageStyle(StageStyle.UTILITY)
                 .showAndWait();
     }
     
-    public static BBSuperController showProgressDTSafeAsync(BBSuperController c, String title) throws Exception {
-        return BBSuperContBuilder.inst(c, FXMLProgressDialogController.class, title)
+    public static FXMLProgressDialogController showProgressDTSafeAsync(BBSuperController c, String title) {
+        return (FXMLProgressDialogController) BBSuperContBuilder.inst(c, FXMLProgressDialogController.class, title)
                 .setModality(Modality.APPLICATION_MODAL).setStageStyle(StageStyle.UTILITY)
                 .buildTSAsync(true);
     }
@@ -72,6 +72,14 @@ public class FXMLProgressDialogController extends BBSuperController {
     public void updateMessage(String s) { 
         Platform.runLater(() -> {
             progressLabel.setText(s);
+        });
+    }
+    
+    public void updateMessageNProgress(String s, double progress) { 
+        Platform.runLater(() -> {
+            progressLabel.setText(s);
+            progressBar.setProgress(progress);
+            progressBar.setStyle(BBColorUtils.getStyleForProgress(progress));
         });
     }
 }

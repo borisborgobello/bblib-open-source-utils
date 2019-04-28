@@ -27,6 +27,8 @@ import javafx.stage.FileChooser;
  */
 public class BBDialogs {
     
+    public static String DEFAULT_STYLESHEET = "resources/css/modena_dark.css";
+    
     public static String alertConfirmationAssetPath = BBRes.DefaultAssets.S_ICON_BALL_HELP;
     public static String alertErrorAssetPath = BBRes.DefaultAssets.S_ICON_BALL_KO;
     public static String alertNoneAssetPath = BBRes.DefaultAssets.S_ICON_BALL_PACMAN;
@@ -49,7 +51,7 @@ public class BBDialogs {
         } else {
             return a;
         }
-        a.getDialogPane().getStylesheets().add("resources/css/modena_dark.css");
+        if (DEFAULT_STYLESHEET != null) a.getDialogPane().getStylesheets().add(DEFAULT_STYLESHEET);
         return decorateAlert(c, a, icon);
     }
     
