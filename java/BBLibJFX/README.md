@@ -5,6 +5,84 @@
 
 Author : Boris Borgobello
 
+### Build process
+
+#### JAR archive
+
+Last version of BBLibJFX is found in store/bblib.jar.
+It is built by running the build target AAA-bblib. It packages all the dependencies into a single JAR.
+
+#### Applications
+
+It is possible to generate Windows and MacOS X user friendly and obfuscated apps.
+
+Obfuscation is done via proguard. The proguard config is found at the root of the project alongside a copy of proguard.jar binary.
+
+Creation shell scripts are inside ./exports/ folder. Output will be zipped and moved to ./exports/bin dir.
+- For Mac Application, you need jar2app https://github.com/Jorl17/jar2app : ./build_bblibapp_mac.sh
+
+
+```
+./build_bblibapp_mac.sh 
+ProGuard, version 6.0.3
+Reading program jar [/Users/borisborgobello/project/perso/bblib-open-source-utils/java/BBLibJFX/store/bblib.jar]
+Reading library directory [/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/jre/lib] (filtered)
+Reading library directory [/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/jre/lib/ext] (filtered)
+Preparing output jar [/Users/borisborgobello/project/perso/bblib-open-source-utils/java/BBLibJFX/store/bblib_enc.jar]
+  Copying resources from program jar [/Users/borisborgobello/project/perso/bblib-open-source-utils/java/BBLibJFX/store/bblib.jar]
+Create MAC app for BBLib 3.
+mkdir: bin: File exists
+jar2app 1.0.1, João Ricardo Lourenço, 2015-2017 <jorl17.8@gmail.com>.
+Github page: https://github.com/Jorl17/jar2app/
+Packing ../store/bblib_enc.jar into /Users/borisborgobello/project/perso/bblib-open-source-utils/java/BBLibJFX/exports/BBLibApp M3.0.app
+CFBundleIconFile: bblibapp.icns
+CFBundleIdentifier: com.jar2app.example.BBLibApp M3.0
+CFBundleDisplayName: BBLibApp M3.0
+CFBundleName: BBLibApp M3.0
+CFBundleShortVersionString: 1.0.0
+CFBundleSignature: ????
+CFBundleVersion: 1.0.0
+Retina support enabled.
+---
+JVMOptions: -Dprism.order=sw -Dprism.verbose=true
+JVMMainClassName: com.borisborgobello.jfx.asamples.a
+JAR Working directory: $APP_ROOT/Contents
+
+../store/bblib_enc.jar packaged to /Users/borisborgobello/project/perso/bblib-open-source-utils/java/BBLibJFX/exports/BBLibApp M3.0.app.
+Zipping JAR
+  adding: BBLibApp M3.0.app/ (stored 0%)
+  adding: BBLibApp M3.0.app/Contents/ (stored 0%)
+  adding: BBLibApp M3.0.app/Contents/MacOS/ (stored 0%)
+  adding: BBLibApp M3.0.app/Contents/MacOS/JavaAppLauncher (deflated 70%)
+  adding: BBLibApp M3.0.app/Contents/PlugIns/ (stored 0%)
+  adding: BBLibApp M3.0.app/Contents/Resources/ (stored 0%)
+  adding: BBLibApp M3.0.app/Contents/Resources/en.lproj/ (stored 0%)
+  adding: BBLibApp M3.0.app/Contents/Resources/en.lproj/Localizable.strings (deflated 30%)
+  adding: BBLibApp M3.0.app/Contents/Resources/bblibapp.icns (deflated 47%)
+  adding: BBLibApp M3.0.app/Contents/Java/ (stored 0%)
+  adding: BBLibApp M3.0.app/Contents/Java/bblib_enc.jar (deflated 9%)
+  adding: BBLibApp M3.0.app/Contents/Info.plist (deflated 64%)
+```
+
+- For Windows Application, you need launch4j. A copy is already inside exports/ dir. Use : ./build_bblibapp_win.sh
+
+```
+./build_bblibapp_win.sh 
+ProGuard, version 6.0.3
+Reading program jar [/Users/borisborgobello/project/perso/bblib-open-source-utils/java/BBLibJFX/store/bblib.jar]
+Reading library directory [/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/jre/lib] (filtered)
+Reading library directory [/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/jre/lib/ext] (filtered)
+Preparing output jar [/Users/borisborgobello/project/perso/bblib-open-source-utils/java/BBLibJFX/store/bblib_enc.jar]
+  Copying resources from program jar [/Users/borisborgobello/project/perso/bblib-open-source-utils/java/BBLibJFX/store/bblib.jar]
+launch4j: Compiling resources
+launch4j: Linking
+launch4j: Wrapping
+launch4j: Successfully created /Users/borisborgobello/project/perso/bblib-open-source-utils/java/BBLibJFX/exports/../store/BBLibApp.exe
+Zipping JAR
+  adding: BBLibApp.exe (deflated 9%)
+DONE
+```
+
 ### Libray
 
 Samples and use cases are found into asamples package.
