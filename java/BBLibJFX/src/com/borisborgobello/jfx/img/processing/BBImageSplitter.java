@@ -247,6 +247,7 @@ public class BBImageSplitter {
         int currentGroupNumber = 1;
         for (ArrayList<Pixel> group : result) {
             PixelGroup pg = new PixelGroup();
+            allGroups.add(pg);
             pg.groupNumber = currentGroupNumber;
             pg.ps = group;
             for (Pixel p : group) { p.group = currentGroupNumber; }

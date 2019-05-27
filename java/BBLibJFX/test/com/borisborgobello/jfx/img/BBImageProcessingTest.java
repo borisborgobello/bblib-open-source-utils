@@ -93,7 +93,7 @@ public class BBImageProcessingTest {
         
         double transparencyTolerance = 0.5;
         ArrayList<BBImageSplitter.PixelGroup> result = BBImageSplitter.segmentateWithTransparency(transparencyTolerance, img, BBImageSegmentor.Mode.SAFE_STACKED);
-        assertEquals(result.size(), 2);
+        assertEquals(2, result.size());
         assertEquals(step1, result.get(0).ps.size());
         assertEquals(step3-step2, result.get(1).ps.size());
         
