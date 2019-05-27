@@ -31,7 +31,7 @@ public class BBImageNeighbourReporting {
         public final HashMap<V, Integer> histo = new HashMap(); // 
         public final HashMap<Integer, Integer> groups = new HashMap();
         //public DMC tl=null,t=null,tr=null,l=null,r=null,bl=null,b=null,br=null;
-        boolean cornerIdent = false;
+        public boolean cornerIdent = false;
 
         public BBNeighbourReportGeneric(T pl) { this.pl = pl; }
         public BBNeighbourReportGeneric() { this.pl = null; }

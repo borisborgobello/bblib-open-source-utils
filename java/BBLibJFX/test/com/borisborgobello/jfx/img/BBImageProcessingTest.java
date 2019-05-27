@@ -5,8 +5,10 @@
  */
 package com.borisborgobello.jfx.img;
 
+import com.borisborgobello.jfx.img.processing.BBImageNeighbourReporting;
 import com.borisborgobello.jfx.img.processing.BBImageSegmentor;
 import com.borisborgobello.jfx.img.processing.BBImageSplitter;
+import com.borisborgobello.jfx.img.processing.BBImageSplitter.Pixel;
 import com.borisborgobello.jfx.utils.BBCollections;
 import com.borisborgobello.jfx.utils.BBColor;
 import java.awt.Color;
@@ -135,15 +137,21 @@ public class BBImageProcessingTest {
     private static class Pix { 
         final int x, y; 
         final Color c;
+        final int group;
         public Pix(int x, int y, Color c) {
+            this(x,y,c, -1);
+        }
+        public Pix(int x, int y, Color c, int group) {
             this.x = x;
             this.y = y;
             this.c = c;
+            this.group = group;
         }
  }
     
     @Test
     public void testSegmentor() {
+        System.out.println("testSegmentor");
         final int w = 113;
         final int h = 201;
         final Pix[][] matrix = new Pix[h][w];
@@ -210,6 +218,58 @@ public class BBImageProcessingTest {
         assertEquals(step3, result2Qty);
         assertEquals(3, result1.size());
         assertEquals(result1.size(), result2.size());
+    }
+    
+    
+    @Test
+    public void testNeighbourReporting() {
+        System.out.println("testNeigh");
+        final int w = 20, h = 30;
+        final Pix[][] matrix = new Pix[h][w];
+        
+        BBCollections.clear(matrix);
+        
+        matrix[2][3] = new Pix(3, 2, Color.WHITE, 1);
+        matrix[3][3] = new Pix(3, 3, Color.WHITE, 1);
+        matrix[3][4] = new Pix(4, 3, Color.WHITE, 1);
+        matrix[4][4] = new Pix(4, 4, Color.BLACK, 2);
+        matrix[4][2] = new Pix(2, 4, Color.BLACK, 3);
+        matrix[4][3] = new Pix(3, 4, Color.GREEN, 2);
+        matrix[5][1] = new Pix(1, 5, Color.GREEN, 2);
+        
+        BBImageNeighbourReporting.BBIndexValueExtractor extractor = new BBImageNeighbourReporting.BBIndexValueExtractor<Pix,Integer>() {
+            @Override public int x(Pix t) { return t.x; }
+            @Override public int y(Pix t) { return t.y; }
+            @Override public boolean areIdentical(Pix t1, Pix t2) {
+                if (t1 != null && t2 != null) { return t1.c == t2.c; }
+                else if (t1 == null && t2 == null) return true;
+                return false;
+            }
+            @Override public Integer value(Pix t) { return t.c.getRGB(); }
+            @Override public Integer group(Pix t) { return t.group; }
+        };
+        
+        BBImageNeighbourReporting.BBNeighbourReportGeneric report = 
+                BBImageNeighbourReporting.findIdenticalNeighboursGeneric(matrix, matrix[3][3], extractor, null);
+        
+        assertEquals(2, report.identical);
+        assertEquals(3, report.different);
+        assertEquals(false, report.cornerIdent);
+        assertEquals(2, (int)report.getOverwhelmingGroup(1));
+        assertEquals(1, (int)report.getOverwhelmingGroup(-1));
+        assertEquals(Color.BLACK.getRGB(), (int)report.getOverwhelmingDifferentDMC());
+        assertEquals(3, report.groups.size());
+        assertEquals(2, report.histo.size());
+        
+        report = BBImageNeighbourReporting.findIdenticalNeighboursGeneric(matrix, matrix[4][2], extractor, report);
+        
+        assertEquals(0, report.identical);
+        assertEquals(3, report.different);
+        assertEquals(false, report.cornerIdent);
+        assertEquals(2, (int)report.getOverwhelmingGroup(3));
+        assertEquals(Color.GREEN.getRGB(), (int)report.getOverwhelmingDifferentDMC());
+        assertEquals(2, report.groups.size());
+        assertEquals(2, report.histo.size());
     }
 }
 
