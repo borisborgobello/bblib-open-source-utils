@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javafx.util.Pair;
 
 /**
@@ -193,6 +194,16 @@ public class BBCollections {
     }
 
     public static final <T, U> ArrayList<U> addInArrayInMap(HashMap<T, ArrayList<U>> m, T o, U i) {
+        ArrayList<U> i2 = m.get(o);
+        if (i2 == null) {
+            i2 = new ArrayList<>();
+            m.put(o, i2);
+        }
+        i2.add(i);
+        return i2;
+    }
+    
+    public static final <T, U> ArrayList<U> addInArrayInTreeMap(TreeMap<T, ArrayList<U>> m, T o, U i) {
         ArrayList<U> i2 = m.get(o);
         if (i2 == null) {
             i2 = new ArrayList<>();

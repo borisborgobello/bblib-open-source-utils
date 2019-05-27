@@ -36,7 +36,7 @@ public class BBLibFXMLSampleHeavyProcessingController extends BBSuperController 
     }
     
     void apacheMLTest() {
-        final BBImageApacheMLBridge.ISFilterBase filter = new BBImageApacheMLBridge.FKmeansAp();
+        final BBImageApacheMLBridge.BBFilterBase filter = new BBImageApacheMLBridge.FKmeansAp();
         final BBImageApacheMLBridge.BBDistances dist = BBImageApacheMLBridge.BBDistances.DIST_EUCLI;
         final int w = 119, h = 319;
         

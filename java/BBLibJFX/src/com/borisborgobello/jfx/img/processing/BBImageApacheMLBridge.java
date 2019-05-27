@@ -62,7 +62,7 @@ public class BBImageApacheMLBridge {
         public ArrayList<T> points = new ArrayList<>();
     }
 
-    public static abstract class ISFilterBase {
+    public static abstract class BBFilterBase {
         @Override
         public String toString() {
             return getName();
@@ -88,7 +88,7 @@ public class BBImageApacheMLBridge {
         public abstract <T> ArrayList<BBFilterGroup<T>> doFilter(ArrayList<T> p, BBDistances d, PixelConverter<T> c, Object... params);
     }
 
-    public static class FKmeansAp extends ISFilterBase {
+    public static class FKmeansAp extends BBFilterBase {
 
         @Override
         public String getName() {
@@ -139,10 +139,10 @@ public class BBImageApacheMLBridge {
             List<CentroidCluster<Clusterable>> clusterResults = null;
             long start = System.currentTimeMillis();
             if (fuzzy > 0) {
-                FuzzyKMeansClusterer<Clusterable> clusterer = new FuzzyKMeansClusterer<>(dmcs, fuzzy, 10000, d.dm);
+                FuzzyKMeansClusterer<Clusterable> clusterer = new FuzzyKMeansClusterer<>(dmcs, fuzzy, 10, d.dm);
                 clusterResults = clusterer.cluster(data);
             } else {
-                KMeansPlusPlusClusterer<Clusterable> clusterer = new KMeansPlusPlusClusterer(dmcs, 10000, d.dm);
+                KMeansPlusPlusClusterer<Clusterable> clusterer = new KMeansPlusPlusClusterer(dmcs, 10, d.dm);
                 if (attempts > 1) {
                     MultiKMeansPlusPlusClusterer mmppc = new MultiKMeansPlusPlusClusterer(clusterer, attempts);
                     clusterResults = mmppc.cluster(data);
