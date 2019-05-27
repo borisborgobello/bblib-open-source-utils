@@ -26,6 +26,13 @@ public class BBFileInout {
         f.getParentFile().mkdirs();
         return f;
     }
+    
+    public static final File getTemporaryDir(String... segments) {
+        segments[segments.length - 1] = extractFilename(segments[segments.length - 1], true); // ignoring path
+        File f = Paths.get(S_TMP_PATH, segments).toFile();
+        f.mkdirs();
+        return f;
+    }
 
     public static byte[] readAllDataFromInputStream(InputStream is) {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();

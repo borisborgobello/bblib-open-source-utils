@@ -5,6 +5,7 @@
  */
 package com.borisborgobello.jfx.img;
 
+import com.borisborgobello.jfx.io.BBFileInout;
 import com.borisborgobello.jfx.ui.BBUIHelper;
 import static com.borisborgobello.jfx.utils.BBColor.I_TRANSPARENT;
 import com.borisborgobello.jfx.utils.BBColorUtils;
@@ -230,7 +231,7 @@ public class BBImgUtils {
     
     public static class BigBufferedImage extends BufferedImage {
 
-	private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
+	private static final String TMP_DIR = BBFileInout.getTemporaryDir("bbi").getAbsolutePath(); //System.getProperty("java.io.tmpdir");
 	public static final int MAX_PIXELS_IN_MEMORY =  1024 * 1024;
 
 	public static BufferedImage create(int width, int height, int imageType) {
