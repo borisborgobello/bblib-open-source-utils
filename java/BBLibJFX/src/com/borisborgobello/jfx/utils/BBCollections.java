@@ -44,6 +44,12 @@ public class BBCollections {
             }
         }
     }
+    
+    public static <T> void initMatrixWith(T[][] bi, T value) { 
+        forEach(bi, bi[0].length, bi.length, (Integer x, Integer y, T v) -> {
+            bi[y][x] = value;
+        });
+    }
 
     public static <T, V> HashMap<T, V> newHM(Object... params) {
         HashMap<T, V> m = new HashMap<>();
