@@ -30,7 +30,10 @@ public class BBImageSegmentor {
     }
     
     /**
-     * Segmentates a 2D matrix based on segmentor parameter
+     * Segmentates a 2D matrix based on segmentor parameter. Two pixels belong
+     * to the same group if they 1) are next to each other (x/y +-1) and
+     * validate the shouldUnite condition of the segmentor.
+     * It is typically useful for object detection in images
      * @param <T> usually a pixel
      * @param matrix matrix of T
      * @param seg returns X,Y and groupability of two T
@@ -108,7 +111,6 @@ public class BBImageSegmentor {
                 if (matrixAffected[j][i]) continue;
                 T p2 = matrix[j][i];
                 if (p2 == null || p2 == currentPixel || !seg.shouldUnite(currentPixel,p2)) continue;
-                if (pg.contains(p2)) continue;
                 stack.add(() -> { findGroupStack(stack, p2, pg, matrix, matrixAffected, seg); });
             }
         }

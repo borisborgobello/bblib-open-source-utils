@@ -25,6 +25,10 @@ import javafx.util.Pair;
  */
 public class BBCollections {
     
+    public static Long toUID(int x, int y, int totalWidth) {
+        return x + ((long)y)*totalWidth;
+    }
+    
     public static <T> boolean isInside(T[][] matrix, int x, int y) {
         if (x < 0 || x >= matrix[0].length) return false;
         return !(y < 0 || y >= matrix.length);
@@ -36,11 +40,37 @@ public class BBCollections {
     public static <T> boolean isInsideY(T[][] matrix, int y) {
         return !(y < 0 || y >= matrix.length);
     }
+    
+    public static <T> boolean isInside(int x, int y, int width, int height) {
+        if (x < 0 || x >= width) return false;
+        if (y < 0 || y >= height) return false;
+        return true;
+    }
 
     public static <T> void forEach(T[][] bi, int w, int h, Callb3<Integer, Integer, T> cb) {
         for (int j = 0; j < h; j++) {
             for (int i = 0; i < w; i++) {
                 cb.run(i, j, bi[j][i]);
+            }
+        }
+    }
+    
+    public static <T> void forEach(List<List<T>> bi, Callb3<Integer, Integer, T> cb) {
+        List<T> currentList = null;
+        for (int i = 0; i < bi.size(); i++) {
+            currentList = bi.get(i);
+            for (int j = 0; j < currentList.size(); j++) {
+                cb.run(i, j, currentList.get(j));
+            }
+        }
+    }
+    
+    public static <T> void forEach(ArrayList<ArrayList<T>> bi, Callb3<Integer, Integer, T> cb) {
+        List<T> currentList = null;
+        for (int i = 0; i < bi.size(); i++) {
+            currentList = bi.get(i);
+            for (int j = 0; j < currentList.size(); j++) {
+                cb.run(i, j, currentList.get(j));
             }
         }
     }

@@ -7,7 +7,6 @@ package com.borisborgobello.jfx.img.processing;
 
 import com.borisborgobello.jfx.img.BBImgUtils;
 import com.borisborgobello.jfx.io.BBFileInout;
-import com.borisborgobello.jfx.utils.BBCollections;
 import com.borisborgobello.jfx.utils.BBGeometry;
 import com.borisborgobello.jfx.utils.BBGeometry.BaseBProjection;
 import java.awt.Color;
@@ -16,8 +15,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
 import javax.imageio.ImageIO;
 
 /**
@@ -164,10 +161,6 @@ public class BBImageSplitter {
         }
     }
     
-    public static Long toUID(int x, int y, int totalWidth) {
-        return x + ((long)y)*totalWidth;
-    }
-    
     /**
      * Segmentation of all PNG files contained inside inputFolder based on transparency
      * threshold. Each image will be splited into smaller isolated pieces (that
@@ -200,7 +193,7 @@ public class BBImageSplitter {
             BufferedImage a1 = ImageIO.read(fin);
             
             int objectNb = 1;
-            for (PixelGroup pg : segmentateWithTransparency2(transparencyThreshold, a1)) {
+            for (PixelGroup pg : segmentateWithTransparency(transparencyThreshold, a1, BBImageSegmentor.Mode.SAFE_STACKED)) {
                 if (pg.ps.size() < minObjectSizePixels) continue;
                 
                 File fout = Paths.get(outputFolder.getAbsolutePath(), 
@@ -218,13 +211,13 @@ public class BBImageSplitter {
      * Segmentates an image based on transparency threshold
      * @param transparencyTolerance [0.0->1.0], 0.3 -> pixels with alpha 0 -> 0.3
      * will be considered transparent
-     * 
+     * @param mode
      * @param img
      * @return 
      */
-    public static ArrayList<PixelGroup> segmentateWithTransparency2(
+    public static ArrayList<PixelGroup> segmentateWithTransparency(
             double transparencyTolerance, 
-            BufferedImage img) {
+            BufferedImage img, BBImageSegmentor.Mode mode) {
         
         final int transparency = (int) (transparencyTolerance*255);
         
@@ -242,101 +235,132 @@ public class BBImageSplitter {
             }
         }
         
+        // Segmenting
+        final ArrayList<ArrayList<Pixel>> result = BBImageSegmentor.segmentate(matrix, new BBImageSegmentor.Segmentor<Pixel>() {
+            @Override public int x(Pixel t) { return t.x; }
+            @Override public int y(Pixel t) { return t.y; }
+            @Override public boolean shouldUnite(Pixel s1, Pixel s2) { return !(s1 == null || s2 == null); }
+        }, mode);
+        
+        // Affecting groups
         ArrayList<PixelGroup> allGroups = new ArrayList<>();
-        int groupNumber = 1;
-        
-        for (int j = 0; j < img.getHeight(); j++) {
-            //ISLog.s(String.format("%d%%", 100*j/img.getHeight()));
-            for (int i = 0; i < img.getWidth(); i++) {
-                Pixel p = matrix[j][i];
-                if (p == null) continue;
-                //long uid = toUID(i, j, img.getWidth());
-                if (p.group != -1) continue;
-                PixelGroup pg = new PixelGroup();
-                pg.groupNumber = groupNumber++;
-                allGroups.add(pg);
-                /*try {
-                    findNotTransparentGroup(p, pg, matrix);
-                } catch (StackOverflowError e) {*/
-                    //ISLog.s("Overflown => fallback on stacked");
-                    //pg.ps.clear();
-                    //for (Pixel p5 : pg.ps) p5.group = -1;
-                    findNotTransparentGroupStacked(p, pg, matrix);
-                //}
-                
-                //for (Pixel p2 : pg.ps) { allAffectedPixels.put(toUID(p2.x, p2.y, img.getWidth()), p2); }
-            }
+        int currentGroupNumber = 1;
+        for (ArrayList<Pixel> group : result) {
+            PixelGroup pg = new PixelGroup();
+            pg.groupNumber = currentGroupNumber;
+            pg.ps = group;
+            for (Pixel p : group) { p.group = currentGroupNumber; }
+            currentGroupNumber++;
         }
-        
         return allGroups;
     }
     
+    //
+    /*
+    public static ArrayList<PixelGroup> segmentateWithTransparency(BufferedImage img) {
+        
+        /*File f = Paths.get(ISSamplerPattern.DP_TMP_DEBUG_DIR, new File("segtestin.png").getName()).toFile();
+        try {
+            ImageIO.write(img, "png", f);
+        } catch (IOException ex) {
+            Logger.getLogger(ISFabPatUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        /*
+        Pixel[][] matrix = new Pixel[img.getHeight()][img.getWidth()];
+        for (int j = 0; j < img.getHeight(); j++) {
+            for (int i = 0; i < img.getWidth(); i++) {
+                int c = img.getRGB(i, j);
+                matrix[j][i] = c == BBColor.I_TRANSPARENT ? null : new Pixel(BBColor.BLACK, i, j);
+            }
+        }
+        TreeMap<Long, Pixel> allAffectedPixels = new TreeMap<>();
+        ArrayList<PixelGroup> allGroups = new ArrayList<>();
+        BoundingBox bb = new BoundingBox(0, 0, img.getWidth(), img.getHeight());
+        
+        for (int j = 0; j < img.getHeight(); j++) {
+            for (int i = 0; i < img.getWidth(); i++) {
+                Pixel p = matrix[j][i];
+                if (p == null) continue;
+                long uid = toUID(i, j, img.getWidth());
+                if (allAffectedPixels.containsKey(uid)) continue;
+                PixelGroup pg = new PixelGroup();
+                allGroups.add(pg);
+                try {
+                    findNotTransparentGroup(p, pg, bb, matrix);
+                } catch (StackOverflowError e) {
+                    BBLog.s("Overflown => fallback on stacked");
+                    pg.ps.clear();
+                    findNotTransparentGroupStacked(p, pg, bb, matrix);
+                }
+                
+                for (Pixel p2 : pg.ps) { allAffectedPixels.put(toUID(p2.x, p2.y, img.getWidth()), p2); }
+            }
+        }
+        /*
+        // Debug
+        for (PixelGroup pg : allGroups) {
+            Color c = ISColor.getAWTColor(ISColor.getRandomColor());
+            for (Pixel p : pg.ps) {
+                matrix[p.y][p.x].c = c;
+            }
+        }
+        BufferedImage imgTest = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        for (int j = 0; j < img.getHeight(); j++) {
+            for (int i = 0; i < img.getWidth(); i++) {
+                Pixel p = matrix[j][i];
+                imgTest.setRGB(i, j, p == null ? ISColor.I_TRANSPARENT : p.c.getRGB());
+            }
+        }
+        
+        f = Paths.get(ISSamplerPattern.DP_TMP_DEBUG_DIR, new File("segtest.png").getName()).toFile();
+        try {
+            ImageIO.write(imgTest, "png", f);
+        } catch (IOException ex) {
+            Logger.getLogger(ISFabPatUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        /*return allGroups;
+    }
     
-    /**
-     * Given a matrix, a current group and a starting pixel, recursively discovers
-     * new pixels linked to this group
-     * This function is VULNERABLE to stackoverflows on big matrix with big objects
-     * @param currentPixel
-     * @param pg
-     * @param matrix 
-     */
-    public static void findNotTransparentGroup(Pixel currentPixel, PixelGroup pg, Pixel[][] matrix) {
+    public static void findNotTransparentGroup(Pixel currentPixel, PixelGroup pg, BoundingBox bounds, Pixel[][] matrix) {
         pg.ps.add(currentPixel);
-        currentPixel.group = pg.groupNumber;
         for (int k= currentPixel.y-1; k <= currentPixel.y+1; k++) {
-            if (!BBCollections.isInsideY(matrix, k)) continue;
+            if (k < 0 || k >= matrix.length || k < bounds.getMinY() || k >= bounds.getMaxY()) continue;
             Pixel[] row2 = matrix[k];
             for (int l = currentPixel.x-1; l <= currentPixel.x+1; l++) {
-                if (!BBCollections.isInsideX(matrix, l)) continue;
+                if (l < 0 || l >= row2.length || l < bounds.getMinX() || l >= bounds.getMaxX()) continue;
                 Pixel p2 = row2[l];
-                if (p2 == null || p2 == currentPixel || p2.group != -1) continue;
-                findNotTransparentGroup(p2, pg, matrix);
+                if (p2 == null || p2 == currentPixel) continue;
+                if (pg.ps.contains(p2)) continue;
+                findNotTransparentGroup(p2, pg, bounds, matrix);
             }
         }
     }
     
-    /**
-     * Given a matrix and a pixel group, check currentPixel's neighbours for
-     * non empty pixels. If found, repeat the process.
-     * This function uses a Deque as custom stack to avoid stack overflow
-     * exception. This doesn't protect against OutOfMemory errors ...
-     * @param currentPixel
-     * @param pg
-     * @param matrix 
-     */
-    public static void findNotTransparentGroupStacked(Pixel currentPixel, PixelGroup pg, Pixel[][] matrix) {
+    public static void findNotTransparentGroupStacked(Pixel currentPixel, PixelGroup pg, BoundingBox bounds, Pixel[][] matrix) {
         Deque<Runnable> stack = new LinkedList<>();
-        findNotTransparentGroupStacked(stack, currentPixel, pg, matrix);
+        findNotTransparentGroupStacked(stack, currentPixel, pg, bounds, matrix);
         while (!stack.isEmpty()) {
             stack.pollLast().run();
         }
     }
     
-    
-    /**
-     * Given a custom stack, a currentPixel, a pixelgroup, a global matrix
-     * checks each neighbour for non-emptiness and repeat this function on these
-     * non-empty pixels
-     * @param stack
-     * @param currentPixel
-     * @param pg
-     * @param matrix 
-     */
-    public static void findNotTransparentGroupStacked(Deque<Runnable> stack, Pixel currentPixel, PixelGroup pg, Pixel[][] matrix) {
-        if (currentPixel.group != -1) return;
+    public static void findNotTransparentGroupStacked(Deque<Runnable> stack, Pixel currentPixel, PixelGroup pg, BoundingBox bounds, Pixel[][] matrix) {
         pg.ps.add(currentPixel);
-        currentPixel.group = pg.groupNumber;
         for (int k= currentPixel.y-1; k <= currentPixel.y+1; k++) {
-            if (!BBCollections.isInsideY(matrix, k)) continue;
+            if (k < 0 || k >= matrix.length || k < bounds.getMinY() || k >= bounds.getMaxY()) continue;
             Pixel[] row2 = matrix[k];
             for (int l = currentPixel.x-1; l <= currentPixel.x+1; l++) {
-                if (!BBCollections.isInsideX(matrix, l)) continue;
+                if (l < 0 || l >= row2.length || l < bounds.getMinX() || l >= bounds.getMaxX()) continue;
                 Pixel p2 = row2[l];
-                if (p2 == null || p2 == currentPixel || p2.group != -1) continue;
-                stack.add((Runnable) () -> {
-                    findNotTransparentGroupStacked(stack, p2, pg, matrix);
+                if (p2 == null || p2 == currentPixel) continue;
+                if (pg.ps.contains(p2)) continue;
+                stack.add(new Runnable() {
+                    @Override
+                    public void run() {
+                        findNotTransparentGroupStacked(stack, p2, pg, bounds, matrix);
+                    }
                 });
             }
         }
-    }
+    }*/
 }

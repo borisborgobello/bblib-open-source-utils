@@ -54,11 +54,11 @@ public class BBImageProcessingTest {
     public void testToUID() {
         System.out.println("toUID");
         
-        assertEquals(BBImageSplitter.toUID(0,0,0), (Long) 0L);
-        assertEquals(BBImageSplitter.toUID(10,0,10), (Long) 10L);
-        assertEquals(BBImageSplitter.toUID(10,10,10), (Long) 110L);
-        assertEquals(BBImageSplitter.toUID(1,3,10), (Long) 31L);
-        assertEquals(BBImageSplitter.toUID(7,99,3), (Long) 304L);
+        assertEquals(BBCollections.toUID(0,0,0), (Long) 0L);
+        assertEquals(BBCollections.toUID(10,0,10), (Long) 10L);
+        assertEquals(BBCollections.toUID(10,10,10), (Long) 110L);
+        assertEquals(BBCollections.toUID(1,3,10), (Long) 31L);
+        assertEquals(BBCollections.toUID(7,99,3), (Long) 304L);
     }
 
     /**
@@ -92,7 +92,7 @@ public class BBImageProcessingTest {
         }
         
         double transparencyTolerance = 0.5;
-        ArrayList<BBImageSplitter.PixelGroup> result = BBImageSplitter.segmentateWithTransparency2(transparencyTolerance, img);
+        ArrayList<BBImageSplitter.PixelGroup> result = BBImageSplitter.segmentateWithTransparency(transparencyTolerance, img, BBImageSegmentor.Mode.SAFE_STACKED);
         assertEquals(result.size(), 2);
         assertEquals(step1, result.get(0).ps.size());
         assertEquals(step3-step2, result.get(1).ps.size());
@@ -107,7 +107,7 @@ public class BBImageProcessingTest {
             assertTrue(pg.groupNumber != -1);
             for (BBImageSplitter.Pixel p : pg.ps) {
                 assertTrue(p.group != -1);
-                key = BBImageSplitter.toUID(p.x, p.y, img.getWidth());
+                key = BBCollections.toUID(p.x, p.y, img.getWidth());
                 assertTrue(!map.containsKey(key));
                 map.put(key, p);
             }
@@ -116,7 +116,7 @@ public class BBImageProcessingTest {
         // Case 2 - aims at testing transparency threshold
         
         transparencyTolerance = 0.69;
-        result = BBImageSplitter.segmentateWithTransparency2(transparencyTolerance, img);
+        result = BBImageSplitter.segmentateWithTransparency(transparencyTolerance, img, BBImageSegmentor.Mode.SAFE_STACKED);
         assertEquals(result.size(), 2);
         assertEquals(step1, result.get(0).ps.size());
         assertEquals(step3-step2, result.get(1).ps.size());
@@ -128,7 +128,7 @@ public class BBImageProcessingTest {
         // Case 3 - aims at testing transparency threshold
         
         transparencyTolerance = 0.71;
-        result = BBImageSplitter.segmentateWithTransparency2(transparencyTolerance, img);
+        result = BBImageSplitter.segmentateWithTransparency(transparencyTolerance, img, BBImageSegmentor.Mode.SAFE_STACKED);
         assertEquals(result.size(), 0);
     } 
     

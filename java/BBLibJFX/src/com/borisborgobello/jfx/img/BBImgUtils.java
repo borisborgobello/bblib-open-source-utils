@@ -64,6 +64,10 @@ import sun.nio.ch.DirectBuffer;
  */
 public class BBImgUtils {
     
+    public static boolean isInside(BufferedImage source, Point p) {
+        return !(p.x < 0 || p.y < 0 || p.x >= source.getWidth() || p.y >= source.getHeight());
+    }
+    
     public static final Image imageFromData(byte[] data) throws IOException {
         return SwingFXUtils.toFXImage(ImageIO.read(new ByteArrayInputStream(data)), null);
     }
