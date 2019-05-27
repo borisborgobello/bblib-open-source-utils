@@ -8,7 +8,6 @@ package com.borisborgobello.jfx.img;
 import com.borisborgobello.jfx.img.processing.BBImageNeighbourReporting;
 import com.borisborgobello.jfx.img.processing.BBImageSegmentor;
 import com.borisborgobello.jfx.img.processing.BBImageSplitter;
-import com.borisborgobello.jfx.img.processing.BBImageSplitter.Pixel;
 import com.borisborgobello.jfx.utils.BBCollections;
 import com.borisborgobello.jfx.utils.BBColor;
 import java.awt.Color;

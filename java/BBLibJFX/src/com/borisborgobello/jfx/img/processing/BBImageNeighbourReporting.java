@@ -7,7 +7,6 @@ package com.borisborgobello.jfx.img.processing;
 
 import com.borisborgobello.jfx.utils.BBCollections;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 
 /**
