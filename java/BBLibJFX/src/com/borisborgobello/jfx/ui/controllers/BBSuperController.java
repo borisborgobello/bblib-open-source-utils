@@ -158,7 +158,10 @@ public abstract class BBSuperController implements Initializable {
     }
 
     public final String getS(String key) {
-        return bundle.getString(key);
+        try { return bundle.getString(key); }
+        catch (Exception e) {
+            return BBRes.DEFAULT_BUNDLE.getString(key);
+        }
     }
 
     public final void disableView(Node n) {

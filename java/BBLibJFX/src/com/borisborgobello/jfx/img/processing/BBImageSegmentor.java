@@ -5,13 +5,11 @@
  */
 package com.borisborgobello.jfx.img.processing;
 
-import static com.borisborgobello.jfx.img.processing.BBImageSplitter.toUID;
 import com.borisborgobello.jfx.utils.BBCollections;
 import static com.borisborgobello.jfx.utils.BBCollections.isInside;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.TreeMap;
 
 /**
  *
