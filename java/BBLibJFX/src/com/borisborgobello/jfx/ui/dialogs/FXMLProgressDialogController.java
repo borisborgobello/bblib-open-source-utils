@@ -26,13 +26,13 @@ public class FXMLProgressDialogController extends BBSuperController {
     public static FXMLProgressDialogController showProgressD(BBSuperController c, String title) {
         return (FXMLProgressDialogController) BBSuperContBuilder.inst(c, FXMLProgressDialogController.class, title)
                 .setModality(Modality.APPLICATION_MODAL).setStageStyle(StageStyle.UTILITY)
-                .showAndWait();
+                .show();
     }
     
     public static FXMLProgressDialogController showProgressDTSafeAsync(BBSuperController c, String title) {
         return (FXMLProgressDialogController) BBSuperContBuilder.inst(c, FXMLProgressDialogController.class, title)
                 .setModality(Modality.APPLICATION_MODAL).setStageStyle(StageStyle.UTILITY)
-                .buildTSAsync(true);
+                .buildTSAsync(false);
     }
     
     @FXML
