@@ -239,6 +239,7 @@ public class BBCollections {
     }
 
     public static <T> T[] toArray(List<T> l, Class<T> clazz) {
+        if (l == null) return null;
         return l.toArray((T[]) Array.newInstance(clazz, l.size()));
     }
     

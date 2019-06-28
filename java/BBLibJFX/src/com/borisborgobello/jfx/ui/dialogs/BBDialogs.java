@@ -161,25 +161,29 @@ public class BBDialogs {
     }
     
     public static final File promptForFile(BBSuperController c, String title, String extTitle, String... exts) {
-        for (int i = 0; i < exts.length; i++) {
-            exts[i] = "*." + exts[i];
-        }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
-        fileChooser.getExtensionFilters().addAll(
+        if (extTitle != null && exts != null) {
+            for (int i = 0; i < exts.length; i++) {
+                exts[i] = "*." + exts[i];
+            }
+            fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter(extTitle, exts));
+        }
         File selectedFile = fileChooser.showOpenDialog(c.stage.get());
         return selectedFile;
     }
 
     public static final List<File> promptForFiles(BBSuperController c, String title, String extTitle, String... exts) {
-        for (int i = 0; i < exts.length; i++) {
-            exts[i] = "*." + exts[i];
-        }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
-        fileChooser.getExtensionFilters().addAll(
+        if (extTitle != null && exts != null) {
+            for (int i = 0; i < exts.length; i++) {
+                exts[i] = "*." + exts[i];
+            }
+            fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter(extTitle, exts));
+        }
         List<File> selectedFile = fileChooser.showOpenMultipleDialog(c.stage.get());
         return selectedFile;
     }

@@ -8,9 +8,12 @@ package com.borisborgobello.jfx.utils;
 import com.borisborgobello.jfx.io.BBDualPrintStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -67,6 +70,30 @@ public class BBLog {
             Logger.getLogger("Logs").log(Level.SEVERE, null, ex);
             return "LOG UNAVAILABLE";
         }
+    }
+    
+    public static String getLastLogsAsStr(int limit, boolean errElseOutLogs) {
+        //final AtomicInteger log = new AtomicInteger(0);
+        final StringBuilder sb = new StringBuilder();
+        BBCollections
+            .newAL(new File(LOG_DIR).listFiles((dir, name) -> { 
+                return name.startsWith(errElseOutLogs ? LOG_ERR_PREF : LOG_OUT_PREF); 
+            }))
+            .stream()
+            .sorted(Collections.reverseOrder())
+            .limit(limit)
+            .forEachOrdered((t) -> { 
+                try {
+                    sb.append("###-> LOG - ").append(t.getName())
+                    .append("\n")
+                    .append(new String(Files.readAllBytes(Paths.get(t.getAbsolutePath())), "UTF-8"))
+                    .append("\n");
+                } catch (IOException ex) {
+                    Logger.getLogger(BBLog.class.getName()).log(Level.SEVERE, null, ex);
+                    throw new RuntimeException(ex);
+                }
+            });
+        return sb.toString();
     }
     
     private static boolean inited = false;
