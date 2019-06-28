@@ -16,6 +16,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.util.Pair;
 
 /**
@@ -238,6 +240,19 @@ public class BBCollections {
 
     public static <T> T[] toArray(List<T> l, Class<T> clazz) {
         return l.toArray((T[]) Array.newInstance(clazz, l.size()));
+    }
+    
+    public static <T> Class<? extends T[]> getArrayClass(Class<T> clazz) {
+        try {
+            return (Class<? extends T[]>) Class.forName("[L" + clazz.getName() + ";");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BBCollections.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static <T> Class<? extends T[]> getArrayClass2(Class<T> clazz) {
+        return (Class<? extends T[]>) Array.newInstance(clazz, 0).getClass();
     }
 
     public static final void put(HashMap map, Object... params) {
